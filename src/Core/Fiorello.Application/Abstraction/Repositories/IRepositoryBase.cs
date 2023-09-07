@@ -7,5 +7,4 @@ namespace Fiorello.Application.Abstraction.Repositories;
 public interface IRepositoryBase<T> where T : BaseEntity, new()
 {
     public DbSet<T> Table { get;}
-    
 }
