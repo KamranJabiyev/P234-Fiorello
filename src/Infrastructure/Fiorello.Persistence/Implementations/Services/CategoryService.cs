@@ -35,9 +35,16 @@ public class CategoryService : ICategoryService
         await _categoryWriteRepository.SaveChangeAsync();
     }
 
-    public Task<Category?> FindAsync(int id)
+    public async Task<CategoryGetDto?> FindAsync(Guid id)
     {
-        throw new NotImplementedException();
+        Category? categoryDb = await _categoryReadRepository.FindAsync(id);
+
+        if (categoryDb is null)
+        {
+            throw new NotFoundException("Category Not Found!");
+        }
+
+        return _mapper.Map<CategoryGetDto>(categoryDb);
     }
 
     public List<Category> GetAll()
