@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Fiorello.Infrastructure\Fiorello.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Fiorello.Persistence\Fiorello.Persistence.csproj" />
   </ItemGroup>
