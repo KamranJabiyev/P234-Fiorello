@@ -42,7 +42,7 @@ public class CategoriesController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
         try
@@ -61,5 +61,21 @@ public class CategoriesController : ControllerBase
                 message = ex.Message,
             });
         }
-    } 
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        try
+        {
+            var categories = await _categoryService.GetAllAsync();
+            return Ok(categories);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, new
+            {
+                message = ex.Message,
+            });
+        }
+    }
 }

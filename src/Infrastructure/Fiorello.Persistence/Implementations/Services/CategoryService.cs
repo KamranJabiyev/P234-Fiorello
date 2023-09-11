@@ -4,6 +4,7 @@ using Fiorello.Application.Abstraction.Services;
 using Fiorello.Application.DTOs.CategoryDtos;
 using Fiorello.Domain.Entities;
 using Fiorello.Persistence.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace Fiorello.Persistence.Implementations.Services;
@@ -47,8 +48,9 @@ public class CategoryService : ICategoryService
         return _mapper.Map<CategoryGetDto>(categoryDb);
     }
 
-    public List<Category> GetAll()
+    public async Task<List<CategoryGetDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        List<Category> categories = await _categoryReadRepository.GetAll(c => c.IsDeleted).ToListAsync();
+        return _mapper.Map<List<CategoryGetDto>>(categories);
     }
 }
