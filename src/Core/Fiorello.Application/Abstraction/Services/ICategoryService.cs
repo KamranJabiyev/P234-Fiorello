@@ -5,7 +5,7 @@ namespace Fiorello.Application.Abstraction.Services;
 
 public interface ICategoryService
 {
-    List<Category> GetAll();
+    Task<List<CategoryGetDto>> GetAllAsync();
     Task<CategoryGetDto?> FindAsync(Guid id);
     Task AddAsync(CategoryCreateDto categoryDto);
 }
