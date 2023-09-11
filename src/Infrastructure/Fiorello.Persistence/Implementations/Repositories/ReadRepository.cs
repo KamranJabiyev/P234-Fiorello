@@ -58,7 +58,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
         }
         return isNotTracking ? query.AsNoTracking() : query;
     }
-    public async Task<T?> FindAsync(int id) => await Table.FindAsync(id);
+    public async Task<T?> FindAsync(Guid id) => await Table.FindAsync(id);
     public async Task<T?> GetFiltered(Expression<Func<T, bool>> expression, bool isNotTracking = true)
     {
         return isNotTracking ? await Table.AsNoTracking().FirstOrDefaultAsync(expression)

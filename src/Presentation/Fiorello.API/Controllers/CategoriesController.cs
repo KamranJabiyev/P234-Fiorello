@@ -41,4 +41,25 @@ public class CategoriesController : ControllerBase
             });
         }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Get(Guid id)
+    {
+        try
+        {
+            var category = await _categoryService.FindAsync(id);
+            return Ok(category);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, new
+            {
+                message = ex.Message,
+            });
+        }
+    } 
 }
