@@ -9,7 +9,7 @@ public class CategoryCrateDtoValidator: AbstractValidator<CategoryCreateDto>
     {
         RuleFor(x => x.Name)
             .NotEmpty().
-            MaximumLength(100);
+            MaximumLength(5);
         RuleFor(x=>x.Description).
             MaximumLength(500);
     }
