@@ -2,12 +2,14 @@ using AutoMapper;
 using Fiorello.Application.Abstraction.Repositories;
 using Fiorello.Application.Abstraction.Services;
 using Fiorello.Application.Validators.CategoryValidators;
+using Fiorello.Domain.Entities;
 using Fiorello.Persistence.Contexts;
 using Fiorello.Persistence.Implementations.Repositories;
 using Fiorello.Persistence.Implementations.Services;
 using Fiorello.Persistence.Mappers;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 builder.Services.AddControllers();
+builder.Services.AddIdentity<AppUser,IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -32,6 +36,7 @@ builder.Services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
 builder.Services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
 //services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
