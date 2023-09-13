@@ -37,8 +37,24 @@ builder.Services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
 //services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<AppDbInitializer>();
+
+//Add the service
 
 var app = builder.Build();
+
+using (var Scope = app.Services.CreateScope())
+{
+    var services = Scope.ServiceProvider;
+
+    var initializer = services.GetRequiredService<AppDbInitializer>();
+
+    //Use the service
+    await initializer.IntializerAsync();
+    await initializer.CreateRoleAsync();
+    await initializer.UserSeedAsync();
+    
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
