@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("register")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> Register(RegisterDto user)
     {
         try
@@ -36,6 +36,13 @@ public class AuthController : ControllerBase
                 message = ex.Message,
             });
         }
+    }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> Login(LoginDto login)
+    {
+        TokenResponseDto responseDto=await _authService.LoginAsync(login);
+        return Ok(responseDto);
     }
 
 }

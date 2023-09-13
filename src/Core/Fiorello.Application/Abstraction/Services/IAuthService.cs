@@ -5,6 +5,6 @@ namespace Fiorello.Application.Abstraction.Services;
 public interface IAuthService
 {
     Task RegisterAsync(RegisterDto newUser);
-    Task<LoginResponseDto> Login(LoginDto user);
+    Task<TokenResponseDto> LoginAsync(LoginDto user);
     Task Logout();
 }
